@@ -125,4 +125,4 @@ function setFoodPosition() {
 
 function keyboardHandler(event) {
     console.log(event);
-}
+} 
