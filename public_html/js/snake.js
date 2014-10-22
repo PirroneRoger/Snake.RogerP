@@ -61,7 +61,7 @@ function gameDraw() {
 
 function snakeInitialize() {
     snake = [];
-    snakeLength = 5;
+    snakeLength = 1;
     snakeSize = 20;
     snakeDirection = "down";
     
@@ -89,7 +89,15 @@ function snakeUpdate() {
     }
     else if(snakeDirection == "right"){
         snakeHeadX++;
-    } 
+    }
+    else if(snakeDirection == "left"){
+        snakeHeadX--
+    }
+    else if(snakeDirection == "up") {
+        snakeHeadY--;
+    }
+    
+    checkFoodCollision(snakeHeadX, snakeHeadY);
     
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
@@ -112,15 +120,15 @@ function foodInitialize() {
 
 function foodDraw() {
     context.fillStyle = "white";
-    context.fillRect(food.x, food.y, snakeSize, snakeSize);
+    context.fillRect(food.x * snakeSize, food.y * snakeSize, snakeSize, snakeSize);
 }
 
 function setFoodPosition() {
     var randomX = Math.floor(Math.random() * screenWidth);
     var randomY = Math.floor(Math.random() * screenHeight);
     
-    food.x = randomX;
-    food.y = randomY;
+    food.x = Math.floor(randomX / snakeSize);
+    food.y = Math.floor(randomY / snakeSize);
 }
 
 /* ---------------------------------------------------------------------------- 
@@ -131,10 +139,32 @@ function setFoodPosition() {
 function keyboardHandler(event) {
     console.log(event);
     
-    if(event.keyCode == "39") {
+    if(event.keyCode == "39" && snakeDirection != "left") {
         snakeDirection = "right";
     }
-    else if(event.keyCode == "40") {
+    else if(event.keyCode == "40" && snakeDirection != "up") {
         snakeDirection = "down";
+    }
+    else if(event.keyCode == "37" && snakeDirection != "right") {
+        snakeDirection = "left";
+    }
+    else if(event.keyCode == "38" && snakeDirection != "down") {
+        snakeDirection = "up";
+    }
+}
+
+/* ---------------------------------------------------------------------------- 
+ * Collision Handling
+ * ----------------------------------------------------------------------------
+ */
+
+function checkFoodCollision(snakeHeadX, snakeHeadY) {
+    if(snakeHeadX == food.x && snakeHeadY == food.y) {
+        snake.push({
+            x: 0,
+            y: 0
+        });
+        snakeLength++;
+        setFoodPosition();
     }
 }
