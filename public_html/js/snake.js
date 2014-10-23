@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------------------
  */
 
-var snake;
+var snake_array;
 var snakeLength;
 var snakeSize;
 var snakeDirection;
@@ -98,6 +98,7 @@ function snakeUpdate() {
     }
     
     checkFoodCollision(snakeHeadX, snakeHeadY);
+    checkWallCollision(snakeHeadX, snakeHeadY);
     
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
@@ -166,5 +167,11 @@ function checkFoodCollision(snakeHeadX, snakeHeadY) {
         });
         snakeLength++;
         setFoodPosition();
+    }
+}
+
+function checkWallCollision(snakeHeadX, snakeHeadY) {   
+    if(snakeHeadX * snakeSize >= screenWidth || snakeHeadX * snakeSize < 0) {
+        console.log("Wall Collision");
     }
 }
