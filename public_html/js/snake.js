@@ -45,7 +45,7 @@ function gameInitialize() {
     document.addEventListener("keydown", keyboardHandler);
     
     gameOverMenu = document.getElementById("gameOver");
-    centerMenuPostion(gameOverMenu);
+    centerMenuPosition(gameOverMenu);
     setState("PLAY");
 }
 
@@ -183,6 +183,10 @@ function checkWallCollision(snakeHeadX, snakeHeadY) {
     if(snakeHeadX * snakeSize >= screenWidth || snakeHeadX * snakeSize < 0) {
         setState("GAME OVER");
     }
+    
+    else if(snakeHeadY * snakeSize >= screenHeight || snakeHeadY * snakeSize < 0) {
+        setState("GAME OVER");
+    }
 }
 
 /* ---------------------------------------------------------------------------- 
@@ -211,5 +215,6 @@ function showMenu(state) {
 }
 
 function centerMenuPosition(menu) {
-    menu.style.top = (screenHeight / 2) + "px";
+    menu.style.top = (screenHeight / 2) - (menu.offsetHeight / 2) + "px";
+    menu.style.left = (screenWidth / 2) - (menu.offsetWidth / 2)+ "px";
 }
