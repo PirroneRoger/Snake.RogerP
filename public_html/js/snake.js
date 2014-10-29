@@ -28,7 +28,7 @@ var scoreboard;
 gameInitialize();
 snakeInitialize();
 foodInitialize();
-setInterval(gameLoop, 1000/30);
+setInterval(gameLoop, 4000/90);
 
 /* ---------------------------------------------------------------------------- 
  * Game Functions
@@ -70,7 +70,7 @@ function gameLoop() {
 }
 
 function gameDraw() {
-    context.fillStyle = "rgb(77, 77, 77)";
+    context.fillStyle = "rgb(25, 51, 0)";
     context.fillRect(0, 0, screenWidth, screenHeight);
 }
 
@@ -89,7 +89,7 @@ function gameRestart() {
 function snakeInitialize() {
     snake = [];
     snakeLength = 2;
-    snakeSize =15;
+    snakeSize =20;
     snakeDirection = "down";
     
     for(var index = snakeLength - 1; index >= 0; index--) {
@@ -102,7 +102,10 @@ function snakeInitialize() {
 
 function snakeDraw() {
     for(var index = 0; index < snake.length; index++) {
-        context.fillStyle = "white";
+        context.fillStyle = "#994C00";
+        /**This code makes the snake pieces be separated.**/
+        context.strokeStyle = "rgb(25, 51, 0)";
+        context.strokeRect(snake[index].x * snakeSize, snake[index].y *  snakeSize, snakeSize, snakeSize);
         context.fillRect(snake[index].x * snakeSize, snake[index].y *  snakeSize, snakeSize, snakeSize);
     }
 }
@@ -148,7 +151,7 @@ function foodInitialize() {
 }
 
 function foodDraw() {
-    context.fillStyle = "white";
+    context.fillStyle = "#80FF00";
     context.fillRect(food.x * snakeSize, food.y * snakeSize, snakeSize, snakeSize);
 }
 
@@ -255,5 +258,5 @@ function centerMenuPosition(menu) {
 }
 
 function drawScoreboard() {
-    scoreboard.innerHTML = "Length of your Snake: " + snakeLength;
+    scoreboard.innerHTML = "Score: " + snakeLength;
 }
