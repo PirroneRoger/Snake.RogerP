@@ -13,7 +13,7 @@ body {
     visibility: hidden;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
     font-family: 'Play', sans-serif;
     color: white;
     text-align: center;

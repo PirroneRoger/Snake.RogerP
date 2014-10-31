@@ -67,6 +67,9 @@ function gameLoop() {
         snakeDraw();
         foodDraw();
     }
+    if(games){
+        
+    }
 }
 
 function gameDraw() {
@@ -88,13 +91,13 @@ function gameRestart() {
 
 function snakeInitialize() {
     snake = [];
-    snakeLength = 50;
-    snakeSize =20;
+    snakeLength = 1;
+    snakeSize = 25;
     snakeDirection = "down";
     
     for(var index = snakeLength - 1; index >= 0; index--) {
         snake.push( {
-            x: index,
+            x: 20,
             y: 0
         });
     }
@@ -182,6 +185,12 @@ function keyboardHandler(event) {
     }
     else if(event.keyCode == "38" && snakeDirection != "down") {
         snakeDirection = "up";
+    }
+    
+    /**This code allows you to simply click 'enter' to restart the game if you
+       don't want to click it.**/
+    if(gameState == "GAME OVER" && event.keyCode == "13" ) {
+        gameRestart();
     }
 }
 
