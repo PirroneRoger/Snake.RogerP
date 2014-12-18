@@ -19,6 +19,7 @@ var gameOverMenu;
 var restartButton;
 var playHUD;
 var scoreboard;
+var music;
 
 /* ---------------------------------------------------------------------------- 
  * Executing Game Code
@@ -56,6 +57,9 @@ function gameInitialize() {
     playHUD = document.getElementById("playHUD");
     scoreboard = document.getElementById("scoreboard");
     
+    mainMusic = document.getElementById("mainMusic");
+    mainMusic.loop = true;
+    
     setState("PLAY");
 }
 
@@ -80,6 +84,7 @@ function gameDraw() {
 function gameRestart() {
     snakeInitialize();
     foodInitialize();
+    mainMusic.play();
     hideMenu(gameOverMenu);
     setState("PLAY");
 }
@@ -212,10 +217,12 @@ function checkFoodCollision(snakeHeadX, snakeHeadY) {
 
 function checkWallCollision(snakeHeadX, snakeHeadY) {   
     if(snakeHeadX * snakeSize >= screenWidth || snakeHeadX * snakeSize < 0) {
+        mainMusic.pause();
         setState("GAME OVER");
     }
     
     else if(snakeHeadY * snakeSize >= screenHeight || snakeHeadY * snakeSize < 0) {
+        mainMusic.pause();
         setState("GAME OVER");
     }
 }
@@ -223,6 +230,7 @@ function checkWallCollision(snakeHeadX, snakeHeadY) {
 function checkSnakeCollision(snakeHeadX, snakeHeadY) {
     for(var index = 1; index < snake.length; index++) {
         if(snakeHeadX == snake[index].x && snakeHeadY == snake[index].y) {
+            mainMusic.pause();
             setState("GAME OVER");
             return;
         }
